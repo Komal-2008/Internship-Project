@@ -5,10 +5,8 @@ import pickle
 import io
 import zipfile
 from datetime import datetime
- 
-# ==========================================================
+
 # PAGE CONFIG (must be the first Streamlit command)
-# ==========================================================
 st.set_page_config(
     page_title="Smart Waste Classification System",
     page_icon="♻️",
@@ -16,20 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
  
-# NOTE: All styling below uses 100% native Streamlit components
-# (containers, columns, metrics, dividers, badges via st.success/info,
-# emojis) — no custom HTML/CSS injection. The color theme (green,
-# professional look) comes from .streamlit/config.toml, which must
-# sit next to this file for the theme to apply.
-#
-# Anchor link icons (the small 🔗 that appears on hover next to
-# headings) are removed the native way: st.title()/st.subheader()
-# use anchor=False, and section labels use **bold** markdown text
-# instead of "###" headings (only real headings get anchor icons).
- 
-# ==========================================================
-# LOAD MODEL AND CLASS NAMES (cached so it loads only once)
-# ==========================================================
+# LOAD MODEL AND CLASS NAMES  
 @st.cache_resource
 def load_trained_model():
     import tensorflow as tf
@@ -38,12 +23,8 @@ def load_trained_model():
         class_names = pickle.load(f)
     return model, class_names
  
-# ==========================================================
 # SESSION STATE INIT
-# (keeps prediction results alive across reruns — e.g. when a
-#  download button is clicked, Streamlit reruns the script, and
-#  without session_state the result would disappear)
-# ==========================================================
+
 if "prediction" not in st.session_state:
     st.session_state.prediction = None      # dict: class, confidence, timestamp
 if "pred_image_bytes" not in st.session_state:
@@ -51,9 +32,8 @@ if "pred_image_bytes" not in st.session_state:
 if "last_uploaded_name" not in st.session_state:
     st.session_state.last_uploaded_name = None
  
-# ==========================================================
 # SIDEBAR NAVIGATION
-# ==========================================================
+ 
 with st.sidebar:
     st.title("♻️ Smart Waste", anchor=False)
     st.subheader("Classification System", anchor=False)
@@ -67,9 +47,8 @@ with st.sidebar:
     st.divider()
     st.success("Let's build a cleaner and greener tomorrow 🌱")
  
-# ==========================================================
 # PAGE 1: HOME
-# ==========================================================
+ 
 if page == "🏠 Home":
     st.title("♻️ Smart Waste Classification System", anchor=False)
     st.subheader("AI-powered solution to classify waste and support a cleaner, greener environment", anchor=False)
@@ -110,11 +89,9 @@ if page == "🏠 Home":
         "⚠️ Disclaimer: This application is developed for educational purposes only. "
         "It should not be used as a substitute for professional advice."
     )
- 
-# ==========================================================
+  
 # PAGE 2: UPLOAD & CLASSIFY
-# ==========================================================
- 
+
 elif page == "📷 Upload & Classify":
     st.title("📷 Upload & Classify", anchor=False)
     st.caption("Upload a waste image (drag & drop supported) and click Predict to know the type of waste.")
@@ -218,7 +195,7 @@ elif page == "📷 Upload & Classify":
  
                 st.divider()
  
-                # ---------------- Combined single download (ZIP) ----------------
+                # Combined single download (ZIP)
                 report_text = (
                     "Smart Waste Classification System - Result\n"
                     "--------------------------------------------\n"
@@ -247,9 +224,8 @@ elif page == "📷 Upload & Classify":
                     use_container_width=True,
                 )
  
-# ==========================================================
 # PAGE 3: ABOUT
-# ==========================================================
+ 
 elif page == "ℹ️ About":
     st.title("ℹ️ About This Project", anchor=False)
     st.caption("Learn more about the model, dataset, and technologies behind this app.")
