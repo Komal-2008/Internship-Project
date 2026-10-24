@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ♻️ Smart Waste Classification System
 
 AI-powered web app that classifies waste images into 10 categories using a
@@ -58,4 +57,3 @@ This app is built for educational purposes and should not be used as a
 substitute for professional waste-management advice.
 =======
 # Internship-Project
->>>>>>> 71d1ebd1b877c41dbb63ecb5530221560d178d06
